@@ -2,20 +2,45 @@
 
 $i = file_get_contents("4.in");
 $r = explode("\n", $i);
-$c = 0;
+$v = 0;
+$pp = ['byr' => 0,
+    'iyr' => 0,
+    'eyr' => 0,
+    'hgt' => 0,
+    'hcl' => '',
+    'ecl' => '',
+    'pid' => '',
+    'cid' => '',];
 
 foreach ($r as $l) {
     if (!trim($l)) { // blank lines
+        $valid = true;
+        foreach ($pp as $k => $x) {
+            if (!$x && $k != 'cid') {
+                $valid = false;
+            }
+        }
+        if ($valid) {
+            $v++;
+        }
+        $pp = ['byr' => 0,
+            'iyr' => 0,
+            'eyr' => 0,
+            'hgt' => 0,
+            'hcl' => '',
+            'ecl' => '',
+            'pid' => '',
+            'cid' => '',];
         continue;
     }
 
-    $p = explode(":", $l); // split on :
-    $pw = trim($p[1]); // trim the space and have just the pw (after the colon)
-    $rq = explode(' ', $p[0]); // the part before the colon was x-y c
-    $pwp = count_chars($pw, 1); // magic in php to get character counts by ascii code
-    if ($pwp[ord($chr)] >= $min && $pwp[ord($chr)] <= $max) { // just check if the character appears in range
-        $c++;
+    $f = explode(' ', $l);
+    foreach ($f as $part) {
+        $pts = explode(':', $part);
+        if ($pts[0]) {
+            $pp[$pts[0]] = $pts[1];    
+        }
     }
 }
 
-echo $c;
+echo $v;
