@@ -1,21 +1,43 @@
 <?php
-
 $i = file_get_contents("7.in");
 $r = explode("\n", $i);
-$c = 0;
+$rules1 = [];
+$rules2 = [];
+$sbs = [];
+$hassg = 0;
 
 foreach ($r as $l) {
-    if (!trim($l)) { // blank lines
+    if (!trim($l)) {
         continue;
     }
-
-    $p = explode(":", $l); // split on :
-    $pw = trim($p[1]); // trim the space and have just the pw (after the colon)
-    $rq = explode(' ', $p[0]); // the part before the colon was x-y c
-    $pwp = count_chars($pw, 1); // magic in php to get character counts by ascii code
-    if ($pwp[ord($chr)] >= $min && $pwp[ord($chr)] <= $max) { // just check if the character appears in range
-        $c++;
+    $out = substr($l, 0, strpos($l, ' bags'));
+    $ina = substr($l, strpos($l, ' contain ') + 9);
+    $in = explode(",", $ina);
+    $rules[$out] = [];
+    foreach ($in as $oin) {
+        $oins = explode(" ", trim($oin));
+        $rules2[$out]["list"][] = ["#" => $oins[0], "T" => $oins[1], "C" => $oins[2],];
+        $rules1[$out]["list"][] = $oins[1] . ' ' . $oins[2];
     }
 }
 
-echo $c;
+$nextpass[] = "shiny gold";
+while (count($nextpass)) {
+    $next = array_pop($nextpass);
+    foreach ($rules1 as $c => $con) {
+        if (in_array($next, $con["list"])) {
+            if (!isset($rules1[$c]["sg"])) {
+                $nextpass[] = $c;
+                $rules1[$c]["sg"] = true;
+            }
+        }
+    }
+}
+
+foreach ($rules1 as $c => $val) {
+    if (isset($val["sg"])) {
+        $hassg++;
+    }
+}
+
+echo $hassg;
