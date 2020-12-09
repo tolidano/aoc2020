@@ -1,7 +1,5 @@
 <?php
-
-$i = file_get_contents("2.in");
-$r = explode("\n", $i);
+$r = explode("\n", file_get_contents("2.in"));
 $v = 0;
 
 foreach ($r as $l) {

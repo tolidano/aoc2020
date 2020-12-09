@@ -1,13 +1,9 @@
 <?php
-
-$d = file_get_contents("1.in");
-$r = explode("\n", $d);
+$r = explode("\n", file_get_contents("1.in");
 $m = [];
 
-/* Now the better way...
- * This is the 2-sum 3-sum problem you can google about it
- * The trick is to make a hash table on the first pass
- * Then the second pass gets you the answer because checking for the first number is now O(1)
+/* 
+ * O(n)
  */
 foreach ($r as $a) {
     $m[(int)$a] = 1;
@@ -20,24 +16,31 @@ foreach ($r as $b) {
     }
 }
 
-/* Now for part 2:
- * We have to do an all pairs loop now, to store the sum of two in the hash table
- * But then we keep the same code, effectively
- * An array holds the two distinct values so we can multiply properly
+/*
+ * O(n^2)
  */
+foreach ($r as $a) {
+    foreach ($r as $b) {
+        if ($a + $b == 2020) {
+            echo $a * $b . "\n";
+            break;
+        }
+    }
+}
 
+/*
+ * O(n^2)
+ */
 $m = [];
 foreach ($r as $a) {
     foreach ($r as $b) {
         $m[(int)$b + (int)$a] = [(int)$a, (int)$b];
     }
 }
-
 foreach ($r as $c) {
     $need = 2020 - (int)$c;
     if (isset($m[$need])) {
-        $pos = $m[$need][0] * $m[$need][1] * $c;
-        if ($pos) {
+        if ($pos = $m[$need][0] * $m[$need][1] * $c) {
             echo $pos . "\n";
             break;
         }

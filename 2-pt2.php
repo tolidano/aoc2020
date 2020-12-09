@@ -1,14 +1,12 @@
 <?php
-
-$i = file_get_contents("2.in");
-$r = explode("\n", $i);
+$r = explode("\n", file_get_contents("2.in"));
 $v = 0;
 
 foreach ($r as $l) {
-    $f = 0;
     if (!trim($l)) {
         continue;
     }
+    $f = 0;
     $p = explode(":", $l);
     $pw = trim($p[1]);
     $rq = explode(' ', $p[0]);
@@ -31,4 +29,4 @@ foreach ($r as $l) {
     }
 }
 
-echo $v . "\n";
+echo $v;
