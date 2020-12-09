@@ -1,29 +1,22 @@
 <?php
 $i = file_get_contents("9.in");
 $r = explode("\n", $i);
-$acc = 0;
-$ptr = 0;
-$inf = false;
-$seen = [];
 
-while (!$inf) {
-    if (!isset($seen[$ptr])) {
-        $seen[$ptr] = true;
-    } else {
-        echo "ACC IS $acc\n";
-        die();
+for ($i = 25; $i < count($r); $i++) {
+    $target = $r[$i];
+    $found = false;
+    for ($j = $i - 25; $j < $i; $j++) {
+        for ($k = $i - 25; $k < $i; $k++) {
+            if ($k != $j) {
+                $sum = $r[$j] + $r[$k];
+                if ($sum == $target) {
+                    $found = true;
+                }
+            }
+        }
     }
-    $cmd = $r[$ptr];
-    $p = explode(" ", $cmd);
-    if ($p[0] == "nop") {
-        echo "NOOP FROM $ptr\n";
-        $ptr++;
-    } elseif ($p[0] == "acc") {
-        $acc += (int)$p[1];
-        $ptr++;
-    } elseif ($p[0] == "jmp") {
-        $ptr += (int)$p[1];                
+    if (!$found) {
+        echo $target;
+        die;
     }
 }
-
-echo $acc;
