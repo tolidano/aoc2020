@@ -13,8 +13,10 @@ with open("3.in", "r") as fh:
                 bits[f"b{i}"]["1"] = 0
             bits[f"b{i}"][sline[i]] += 1
     print(bits)
+
     oxy = lines
     co2 = lines
+
     for i in range(len(bits.keys())):
         if bits[f"b{i}"]["0"] > bits[f"b{i}"]["1"]:
             greater = "0"
@@ -25,7 +27,7 @@ with open("3.in", "r") as fh:
         oxy = [o.strip() for o in oxy if o[i] == greater]
         olen = len(oxy)
         print(f"now oxy len is {olen}")
-        if olen < 20:
+        if olen < 0:
             print(oxy)
         if olen == 1:
             break
@@ -40,8 +42,9 @@ with open("3.in", "r") as fh:
         co2 = [c.strip() for c in co2 if c[i] == lesser]
         clen = len(co2)
         print(f"now co2 len is {clen}")
-        if clen < 20:
+        if clen < 0:
             print(co2)
         if clen == 1:
             break
+
     print(int(oxy[0], 2) * int(co2[0], 2))
