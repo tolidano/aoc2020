@@ -31,7 +31,7 @@ with open("3.in", "r") as fh:
     co2 = lines
     cbits = get_bits(lines)
     for i in range(len(cbits.keys())):
-        if cbits[f"b{i}"]["0"] < cbits[f"b{i}"]["1"]:
+        if cbits[f"b{i}"]["0"] <= cbits[f"b{i}"]["1"]:
             lesser = "0"
         else:
             lesser = "1"
