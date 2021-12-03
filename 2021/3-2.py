@@ -1,6 +1,4 @@
-with open("3.in", "r") as fh:
-    lines = fh.readlines()
-    num = len(lines)
+def get_bits(lines):
     bits = {}
     for line in lines:
         sline = line.strip()
@@ -12,19 +10,22 @@ with open("3.in", "r") as fh:
             if "1" not in bits[f"b{i}"]:
                 bits[f"b{i}"]["1"] = 0
             bits[f"b{i}"][sline[i]] += 1
-    print(bits)
+    return bits
+
+with open("3.in", "r") as fh:
+    lines = fh.readlines()
 
     oxy = lines
-    co2 = lines
-
-    for i in range(len(bits.keys())):
-        if bits[f"b{i}"]["0"] > bits[f"b{i}"]["1"]:
+    obits = get_bits(lines)
+    print(obits)
+    for i in range(len(obits.keys())):
+        if obits[f"b{i}"]["0"] > obits[f"b{i}"]["1"]:
             greater = "0"
-            lesser = "1"
         else:
             greater = "1"
-            lesser = "0"
         oxy = [o.strip() for o in oxy if o[i] == greater]
+        obits = get_bits(oxy)
+        print(obits)
         olen = len(oxy)
         print(f"now oxy len is {olen}")
         if olen < 0:
@@ -32,14 +33,17 @@ with open("3.in", "r") as fh:
         if olen == 1:
             break
 
-    for i in range(len(bits.keys())):
-        if bits[f"b{i}"]["0"] < bits[f"b{i}"]["1"]:
-            greater = "1"
+    co2 = lines
+    cbits = get_bits(lines)
+    print(cbits)
+    for i in range(len(cbits.keys())):
+        if cbits[f"b{i}"]["0"] < cbits[f"b{i}"]["1"]:
             lesser = "0"
         else:
-            greater = "0"
             lesser = "1"
         co2 = [c.strip() for c in co2 if c[i] == lesser]
+        cbits = get_bits(co2)
+        print(cbits)
         clen = len(co2)
         print(f"now co2 len is {clen}")
         if clen < 0:
@@ -47,4 +51,6 @@ with open("3.in", "r") as fh:
         if clen == 1:
             break
 
+    print(oxy)
+    print(co2)
     print(int(oxy[0], 2) * int(co2[0], 2))
