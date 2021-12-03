@@ -1,15 +1,10 @@
 def get_bits(lines):
     bits = {}
     for line in lines:
-        sline = line.strip()
-        for i in range(len(sline)):
+        for i in range(len(line.strip())):
             if f"b{i}" not in bits:
-                bits[f"b{i}"] = {}
-            if "0" not in bits[f"b{i}"]:
-                bits[f"b{i}"]["0"] = 0
-            if "1" not in bits[f"b{i}"]:
-                bits[f"b{i}"]["1"] = 0
-            bits[f"b{i}"][sline[i]] += 1
+                bits[f"b{i}"] = {"0": 0, "1": 0}
+            bits[f"b{i}"][line[i]] += 1
     return bits
 
 def get_one(lines, greater=True):
