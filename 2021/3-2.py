@@ -25,6 +25,7 @@ with open("3.in", "r") as fh:
         oxy = [o.strip() for o in oxy if o[i] == greater]
         obits = get_bits(oxy)
         olen = len(oxy)
+        print(olen)
         if olen == 1:
             break
 
@@ -38,7 +39,10 @@ with open("3.in", "r") as fh:
         co2 = [c.strip() for c in co2 if c[i] == lesser]
         cbits = get_bits(co2)
         clen = len(co2)
+        print(clen)
         if clen == 1:
             break
 
+    print(oxy)
+    print(co2)
     print(int(oxy[0], 2) * int(co2[0], 2))
