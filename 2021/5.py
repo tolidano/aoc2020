@@ -1,5 +1,3 @@
-import json
-
 with open("5.in", "r") as fh:
     lines = fh.readlines()
     grid = {}
@@ -33,11 +31,9 @@ with open("5.in", "r") as fh:
                 if x not in grid[m]:
                     grid[m][x] = 0
                 grid[m][x] += 1
-    print(json.dumps(grid, indent=2))
     twos = 0
     for k1, v1 in grid.items():
         for k2, v2 in v1.items():
             if v2 > 1:
                 twos += 1
     print(twos)
-
