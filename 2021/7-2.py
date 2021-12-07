@@ -1,3 +1,10 @@
+"""
+Chris Mohr solution:
+def sr(a):
+    return (a * (a-1)) / 2
+nums = list(map(int, open('7.in', 'r').readline().split(',')))
+print(min(sum(fun(abs(num - i)) for num in nums) for i in range(max(nums))))
+"""
 with open("7.in", "r") as fh:
     lines = fh.readlines()
     pos = lines[0].split(",")
