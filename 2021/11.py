@@ -6,7 +6,7 @@ with open("11.in", "r") as fh:
     for i, line in enumerate(lines):
         grid[i] = list(map(int, list(line.strip())))
     steps = 0
-    print(f"..0123456789 {steps}\n" + "\n".join([str(k)+":"+"".join(list(map(str,j))) for k, j in grid.items()]) + "\n..0123456789\n")
+    print(f"..0123456789 {steps}\n-------------\n" + "\n".join([str(k)+":"+"".join(list(map(str,j))) for k, j in grid.items()]) + "\n--------------\n..0123456789\n")
     rows = len(lines)
     cols = len(lines[0].strip())
     while steps < 100:
@@ -18,6 +18,7 @@ with open("11.in", "r") as fh:
                 if grid[r][c] > 9 and (r,c) not in flashed:
                     print(f"{r} and {c} need to flash, {grid[r][c]}")
                     to_flash.append((r,c))
+        print("Incremented\n" + f"..0123456789 {steps}\n-------------\n" + "\n".join([str(k)+":"+"".join(list(map(str,j))) for k, j in grid.items()]) + "\n--------------\n..0123456789\n")
         while to_flash:
             m = to_flash.pop()
             print(f"popping {m} from to_flash")
@@ -81,5 +82,5 @@ with open("11.in", "r") as fh:
         for f in flashed:
             grid[f[0]][f[1]] = 0
         steps += 1
-        print(f"..0123456789 {steps}\n" + "\n".join([str(k)+":"+"".join(list(map(str,j))) for k, j in grid.items()]) + "\n..0123456789\n")
+        print(f"..0123456789 {steps}\n-------------\n" + "\n".join([str(k)+":"+"".join(list(map(str,j))) for k, j in grid.items()]) + "\n--------------\n..0123456789\n")
     print(flashes)
